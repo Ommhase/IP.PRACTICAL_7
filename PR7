@@ -1,84 +1,207 @@
-import numpy as np
+# ==========================================================
+# Question 1: Creating Lists and Tuples
+# ==========================================================
+print("--- Question 1 ---")
+# List of numbers (mutable, defined using [])
+numbers = [10, 20, 30, 40]
 
-# === PART A: LISTS AND TUPLES ===
+# Tuple of strings (immutable, defined using ())
+fruits = ("apple", "banana", "mango")
 
-# --- Q1: Creating Lists and Tuples ---
-my_list = [10, 20, 30, 40, 50]
-my_tuple = ("Apple", "Banana", "Cherry", "Date")
-print("Q1 Types:", type(my_list), type(my_tuple))
+print("List:", numbers)
+print("Tuple:", fruits)
+print("Type of numbers:", type(numbers))
+print("Type of fruits :", type(fruits))
 
-# --- Q2: Indexing in Lists and Tuples ---
-print(f"Q2 List -> First: {my_list[0]}, Last: {my_list[-1]}, Middle: {my_list[len(my_list)//2]}")
-print(f"Q2 Tuple -> First: {my_tuple[0]}, Last: {my_tuple[-1]}")
 
-# --- Q3: Slicing Lists and Tuples ---
-print("Q3 First 3:", my_list[:3], "| Last 2:", my_list[-2:], "| Alternate:", my_list[::2])
+# ==========================================================
+# Question 2: Indexing in Lists and Tuples
+# ==========================================================
+print("\n--- Question 2 ---")
+numbers = [10, 20, 30, 40, 50]
+items = ("A", "B", "C", "D", "E")
 
-# --- Q4: List Mutability vs Tuple Immutability ---
-my_list[0] = 99
-print("Q4 Modified List:", my_list)
+# Positive Indexing
+print("First element (positive):", numbers[0], "|", items[0])
+print("Middle element (positive):", numbers[2], "|", items[2])
+
+# Negative Indexing
+print("Last element (negative) :", numbers[-1], "|", items[-1])
+print("Middle element (negative):", numbers[-3], "|", items[-3])
+
+
+# ==========================================================
+# Question 3: Slicing Lists and Tuples
+# ==========================================================
+print("\n--- Question 3 ---")
+numbers = [10, 20, 30, 40, 50]
+items = ("A", "B", "C", "D", "E")
+
+# List slicing
+print("List - First 3 elements :", numbers[:3])
+print("List - Last 2 elements  :", numbers[-2:])
+print("List - Alternate elements:", numbers[::2])
+
+# Tuple slicing
+print("Tuple - First 3 elements :", items[:3])
+print("Tuple - Last 2 elements  :", items[-2:])
+print("Tuple - Alternate elements:", items[::2])
+
+
+# ==========================================================
+# Question 4: List Mutability vs Tuple Immutability
+# ==========================================================
+print("\n--- Question 4 ---")
+# Lists are mutable (can be changed)
+num_list = [10, 20, 30]
+num_list[1] = 50
+print("Modified list:", num_list)
+
+# Tuples are immutable (cannot be changed)
+item_tuple = ("A", "B", "C")
 try:
-    my_tuple[0] = "Mango"
+    item_tuple[1] = "X"
 except TypeError as e:
-    print("Q4 Tuple Immutability Error:", e)
+    print("Tuple modification error:", e)
 
-# --- Q5: Adding Elements to List ---
-my_list.append(60)
-my_list.insert(1, 15)
-print("Q5 After append & insert:", my_list)
 
-# --- Q6: Removing Elements from List ---
-my_list.remove(15)
-popped = my_list.pop()
-print(f"Q6 After remove & pop ({popped}):", my_list)
+# ==========================================================
+# Question 5: Adding Elements to a List
+# ==========================================================
+print("\n--- Question 5 ---")
+numbers = [10, 20, 30]
 
-# --- Q7: List Methods - sort(), reverse() ---
-nums = [40, 10, 50, 20, 30]
-nums.sort()
-print("Q7 Ascending:", nums)
-nums.sort(reverse=True)
-print("Q7 Descending:", nums)
-nums.reverse()
-print("Q7 Reversed:", nums)
+# append() adds to the end
+numbers.append(40)
 
-# --- Q8: Tuple Methods - count() and index() ---
-t_nums = (1, 2, 3, 2, 4, 2, 5)
-print("Q8 Count of 2:", t_nums.count(2), "| Index of 4:", t_nums.index(4))
+# insert() adds at a specific index: insert(index, value)
+numbers.insert(1, 15)
 
-# --- Q9: Nested Lists ---
-nested = [[1, 2], [3, 4]]
-nested[1][0] = 30
-print("Q9 Nested List Modified:", nested)
+print("List after append and insert:", numbers)
 
-# --- Q10: Converting Between List and Tuple ---
-tup_to_list = list(my_tuple)
-tup_to_list.append("Elderberry")
-back_to_tuple = tuple(tup_to_list)
-print("Q10 Modified via Conversion:", back_to_tuple)
 
-# --- Q11: Iterating Through Lists and Tuples ---
-print("Q11 Sum of my_list using loop:", sum(x for x in my_list))
+# ==========================================================
+# Question 6: Removing Elements from a List
+# ==========================================================
+print("\n--- Question 6 ---")
+numbers = [10, 20, 30, 40]
 
-# --- Q12: Shopping Cart System ---
-categories = ("Electronics", "Clothing", "Groceries")
-cart = ["Laptop", "Mouse"]
-cart.append("Keyboard")
-cart.remove("Mouse")
-print(f"Q12 Categories: {categories} | Active Cart: {cart}")
+# remove() deletes first occurrence of the value
+numbers.remove(20)
+print("After removing 20:", numbers)
 
-# === PART B: 2D SLICING & NUMPY INDEXING ===
+# pop() removes and returns the last element (or specified index)
+popped_val = numbers.pop()
+print(f"Popped element: {popped_val}")
+print("List after pop():", numbers)
 
-# --- Q1 to Q5: 2D List Indexing and Slicing ---
-mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-print("PartB Q1 -> First:", mat[0][0], "Middle:", mat[1][1], "Last:", mat[2][2])
-print("PartB Q2 -> 2nd Row:", mat[1], "| 3rd Col:", [r[2] for r in mat])
-print("PartB Q3 -> Last Row:", mat[-1], "| Bottom-Right:", mat[-1][-1])
-print("PartB Q4 -> First 2 Rows:", mat[0:2])
-sub_mat = [row[0:2] for row in mat[0:2]]
-print("PartB Q5 -> Top-Left 2x2 Submatrix:", sub_mat)
+# Handling element not present
+try:
+    numbers.remove(99)
+except ValueError as e:
+    print("Remove error handled:", e)
 
-# --- Q6 to Q8: NumPy 2D Indexing and Slicing ---
-arr2d = np.array([[10, 20, 30, 40], [50, 60, 70, 80], [90, 100, 110, 120], [130, 140, 150, 160]])
-print("PartB Q6 -> Element (1,2):", arr2d[1, 2])
-print("PartB Q7 -> First 2 Rows:\n", arr2d[0:2, :], "\nLast Col:", arr2d[:, -1])
-print("PartB Q8 -> Middle 2x2 Submatrix:\n", arr2d[1:3, 1:3])
+
+# ==========================================================
+# Question 7: List Methods - sort() and reverse()
+# ==========================================================
+print("\n--- Question 7 ---")
+numbers = [40, 10, 30, 20]
+
+# Ascending sort
+numbers.sort()
+print("Ascending order :", numbers)
+
+# Descending sort
+numbers.sort(reverse=True)
+print("Descending order:", numbers)
+
+# Invert list order using reverse()
+numbers.reverse()
+print("Reversed list   :", numbers)
+
+
+# ==========================================================
+# Question 8: Tuple Methods - count() and index()
+# ==========================================================
+print("\n--- Question 8 ---")
+t = (10, 20, 30, 20, 40, 20)
+
+print("Count of 20:", t.count(20))
+print("Index of 30:", t.index(30))
+
+# Handling element not found
+try:
+    t.index(99)
+except ValueError as e:
+    print("Index error handled:", e)
+
+
+# ==========================================================
+# Question 9: Nested Lists (2D Structures)
+# ==========================================================
+print("\n--- Question 9 ---")
+matrix = [
+    [1, 2],
+    [3, 4]
+]
+
+# Access using double indexing [row][col]
+print("Element at row 0, col 1:", matrix[0][1])
+
+# Modify nested value
+matrix[1][0] = 10
+print("Matrix after modifying row 1, col 0:\n", matrix)
+
+
+# ==========================================================
+# Question 10: Converting Between List and Tuple
+# ==========================================================
+print("\n--- Question 10 ---")
+initial_list = [1, 2, 3, 4]
+converted_tuple = tuple(initial_list)
+print("Converted to Tuple:", converted_tuple, type(converted_tuple))
+
+initial_tuple = ("x", "y", "z")
+converted_list = list(initial_tuple)
+# Mutate data after conversion
+converted_list.append("w")
+print("Converted to List and modified:", converted_list, type(converted_list))
+
+
+# ==========================================================
+# Question 11: Iterating Through Lists and Tuples
+# ==========================================================
+print("\n--- Question 11 ---")
+numbers = [10, 20, 30, 40]
+items = ("A", "B", "C")
+
+# Iterating and summing a numeric list
+total = 0
+print("List elements:")
+for n in numbers:
+    print(n, end=" ")
+    total += n
+print(f"\nSum of list elements: {total}")
+
+# Iterating a tuple
+print("Tuple elements:")
+for item in items:
+    print(item, end=" ")
+print()
+
+
+# ==========================================================
+# Question 12: Real-World Scenario - Shopping Cart System
+# ==========================================================
+print("\n--- Question 12 ---")
+cart = ["milk", "bread", "eggs"]
+categories = ("Food", "Drinks", "Snacks")
+
+# Add and remove items
+cart.append("butter")
+cart.remove("bread")
+
+print("Fixed Categories (Tuple):", categories)
+print("Updated Shopping Cart   :", cart)
+print("Total items in Cart     :", len(cart))
