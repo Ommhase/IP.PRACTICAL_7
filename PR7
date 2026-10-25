@@ -1,0 +1,84 @@
+import numpy as np
+
+# === PART A: LISTS AND TUPLES ===
+
+# --- Q1: Creating Lists and Tuples ---
+my_list = [10, 20, 30, 40, 50]
+my_tuple = ("Apple", "Banana", "Cherry", "Date")
+print("Q1 Types:", type(my_list), type(my_tuple))
+
+# --- Q2: Indexing in Lists and Tuples ---
+print(f"Q2 List -> First: {my_list[0]}, Last: {my_list[-1]}, Middle: {my_list[len(my_list)//2]}")
+print(f"Q2 Tuple -> First: {my_tuple[0]}, Last: {my_tuple[-1]}")
+
+# --- Q3: Slicing Lists and Tuples ---
+print("Q3 First 3:", my_list[:3], "| Last 2:", my_list[-2:], "| Alternate:", my_list[::2])
+
+# --- Q4: List Mutability vs Tuple Immutability ---
+my_list[0] = 99
+print("Q4 Modified List:", my_list)
+try:
+    my_tuple[0] = "Mango"
+except TypeError as e:
+    print("Q4 Tuple Immutability Error:", e)
+
+# --- Q5: Adding Elements to List ---
+my_list.append(60)
+my_list.insert(1, 15)
+print("Q5 After append & insert:", my_list)
+
+# --- Q6: Removing Elements from List ---
+my_list.remove(15)
+popped = my_list.pop()
+print(f"Q6 After remove & pop ({popped}):", my_list)
+
+# --- Q7: List Methods - sort(), reverse() ---
+nums = [40, 10, 50, 20, 30]
+nums.sort()
+print("Q7 Ascending:", nums)
+nums.sort(reverse=True)
+print("Q7 Descending:", nums)
+nums.reverse()
+print("Q7 Reversed:", nums)
+
+# --- Q8: Tuple Methods - count() and index() ---
+t_nums = (1, 2, 3, 2, 4, 2, 5)
+print("Q8 Count of 2:", t_nums.count(2), "| Index of 4:", t_nums.index(4))
+
+# --- Q9: Nested Lists ---
+nested = [[1, 2], [3, 4]]
+nested[1][0] = 30
+print("Q9 Nested List Modified:", nested)
+
+# --- Q10: Converting Between List and Tuple ---
+tup_to_list = list(my_tuple)
+tup_to_list.append("Elderberry")
+back_to_tuple = tuple(tup_to_list)
+print("Q10 Modified via Conversion:", back_to_tuple)
+
+# --- Q11: Iterating Through Lists and Tuples ---
+print("Q11 Sum of my_list using loop:", sum(x for x in my_list))
+
+# --- Q12: Shopping Cart System ---
+categories = ("Electronics", "Clothing", "Groceries")
+cart = ["Laptop", "Mouse"]
+cart.append("Keyboard")
+cart.remove("Mouse")
+print(f"Q12 Categories: {categories} | Active Cart: {cart}")
+
+# === PART B: 2D SLICING & NUMPY INDEXING ===
+
+# --- Q1 to Q5: 2D List Indexing and Slicing ---
+mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print("PartB Q1 -> First:", mat[0][0], "Middle:", mat[1][1], "Last:", mat[2][2])
+print("PartB Q2 -> 2nd Row:", mat[1], "| 3rd Col:", [r[2] for r in mat])
+print("PartB Q3 -> Last Row:", mat[-1], "| Bottom-Right:", mat[-1][-1])
+print("PartB Q4 -> First 2 Rows:", mat[0:2])
+sub_mat = [row[0:2] for row in mat[0:2]]
+print("PartB Q5 -> Top-Left 2x2 Submatrix:", sub_mat)
+
+# --- Q6 to Q8: NumPy 2D Indexing and Slicing ---
+arr2d = np.array([[10, 20, 30, 40], [50, 60, 70, 80], [90, 100, 110, 120], [130, 140, 150, 160]])
+print("PartB Q6 -> Element (1,2):", arr2d[1, 2])
+print("PartB Q7 -> First 2 Rows:\n", arr2d[0:2, :], "\nLast Col:", arr2d[:, -1])
+print("PartB Q8 -> Middle 2x2 Submatrix:\n", arr2d[1:3, 1:3])
