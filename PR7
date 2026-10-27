@@ -1,207 +1,100 @@
-# ==========================================================
-# Question 1: Creating Lists and Tuples
-# ==========================================================
-print("--- Question 1 ---")
-# List of numbers (mutable, defined using [])
-numbers = [10, 20, 30, 40]
+<?php
+// ==========================================================
+// PRACTICAL 7: PHP ARRAYS AND FILE READING/WRITING
+// ==========================================================
 
-# Tuple of strings (immutable, defined using ())
-fruits = ("apple", "banana", "mango")
-
-print("List:", numbers)
-print("Tuple:", fruits)
-print("Type of numbers:", type(numbers))
-print("Type of fruits :", type(fruits))
-
-
-# ==========================================================
-# Question 2: Indexing in Lists and Tuples
-# ==========================================================
-print("\n--- Question 2 ---")
-numbers = [10, 20, 30, 40, 50]
-items = ("A", "B", "C", "D", "E")
-
-# Positive Indexing
-print("First element (positive):", numbers[0], "|", items[0])
-print("Middle element (positive):", numbers[2], "|", items[2])
-
-# Negative Indexing
-print("Last element (negative) :", numbers[-1], "|", items[-1])
-print("Middle element (negative):", numbers[-3], "|", items[-3])
+// ==========================================================
+// Question 1: Indexed Array
+// ==========================================================
+$technologies = array("AI", "Cloud Computing", "Cyber Security", "IoT");
+echo "<h3>Indexed Array:</h3>";
+foreach ($technologies as $technology) {
+    echo $technology . "<br>";
+}
 
 
-# ==========================================================
-# Question 3: Slicing Lists and Tuples
-# ==========================================================
-print("\n--- Question 3 ---")
-numbers = [10, 20, 30, 40, 50]
-items = ("A", "B", "C", "D", "E")
+// ==========================================================
+// Question 2: Associative Array
+// ==========================================================
+$details = array(
+    "name" => "Artificial Intelligence",
+    "category" => "Software",
+    "year" => 1956
+);
 
-# List slicing
-print("List - First 3 elements :", numbers[:3])
-print("List - Last 2 elements  :", numbers[-2:])
-print("List - Alternate elements:", numbers[::2])
-
-# Tuple slicing
-print("Tuple - First 3 elements :", items[:3])
-print("Tuple - Last 2 elements  :", items[-2:])
-print("Tuple - Alternate elements:", items[::2])
+echo "<h3>Associative Array:</h3>";
+foreach ($details as $key => $value) {
+    echo ucfirst($key) . ": " . $value . "<br>";
+}
 
 
-# ==========================================================
-# Question 4: List Mutability vs Tuple Immutability
-# ==========================================================
-print("\n--- Question 4 ---")
-# Lists are mutable (can be changed)
-num_list = [10, 20, 30]
-num_list[1] = 50
-print("Modified list:", num_list)
-
-# Tuples are immutable (cannot be changed)
-item_tuple = ("A", "B", "C")
-try:
-    item_tuple[1] = "X"
-except TypeError as e:
-    print("Tuple modification error:", e)
+// ==========================================================
+// Question 3: Write to a File
+// ==========================================================
+file_put_contents("technologies.txt", "Artificial Intelligence\nCloud Computing\n", FILE_APPEND | LOCK_EX);
+echo "<p>Data successfully written to technologies.txt</p>";
 
 
-# ==========================================================
-# Question 5: Adding Elements to a List
-# ==========================================================
-print("\n--- Question 5 ---")
-numbers = [10, 20, 30]
+// ==========================================================
+// Question 4: Read from a File
+// ==========================================================
+echo "<h3>Read from File:</h3>";
+if (file_exists("technologies.txt")) {
+    echo nl2br(htmlspecialchars(file_get_contents("technologies.txt")));
+} else {
+    echo "File not found.";
+}
+?>
 
-# append() adds to the end
-numbers.append(40)
+==========================================================
+  Whole Combined Code (htdocs/webprac/practical7.php)
+==========================================================
 
-# insert() adds at a specific index: insert(index, value)
-numbers.insert(1, 15)
+<?php
+$technologies = array(
+    array("name" => "Artificial Intelligence", "category" => "Software"),
+    array("name" => "Cloud Computing", "category" => "Infrastructure"),
+    array("name" => "Cyber Security", "category" => "Security"),
+    array("name" => "Internet of Things", "category" => "Networking")
+);
 
-print("List after append and insert:", numbers)
+$file = "technologies.txt";
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $newTechnology = trim($_POST['technology'] ?? '');
+    if ($newTechnology !== '') {
+        file_put_contents($file, $newTechnology . PHP_EOL, FILE_APPEND | LOCK_EX);
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Arrays and Files</title>
+</head>
+<body>
+    <h1>Technology List (Indexed and Associative Arrays)</h1>
+    <ul>
+        <?php foreach ($technologies as $item): ?>
+            <li>
+                <strong><?php echo htmlspecialchars($item['name']); ?></strong> - 
+                (<?php echo htmlspecialchars($item['category']); ?>)
+            </li>
+        <?php endforeach; ?>
+    </ul>
 
-# ==========================================================
-# Question 6: Removing Elements from a List
-# ==========================================================
-print("\n--- Question 6 ---")
-numbers = [10, 20, 30, 40]
+    <h2>Write to File</h2>
+    <form method="post" action="">
+        <label>Technology name: <input type="text" name="technology" required></label>
+        <button type="submit">Save</button>
+    </form>
 
-# remove() deletes first occurrence of the value
-numbers.remove(20)
-print("After removing 20:", numbers)
-
-# pop() removes and returns the last element (or specified index)
-popped_val = numbers.pop()
-print(f"Popped element: {popped_val}")
-print("List after pop():", numbers)
-
-# Handling element not present
-try:
-    numbers.remove(99)
-except ValueError as e:
-    print("Remove error handled:", e)
-
-
-# ==========================================================
-# Question 7: List Methods - sort() and reverse()
-# ==========================================================
-print("\n--- Question 7 ---")
-numbers = [40, 10, 30, 20]
-
-# Ascending sort
-numbers.sort()
-print("Ascending order :", numbers)
-
-# Descending sort
-numbers.sort(reverse=True)
-print("Descending order:", numbers)
-
-# Invert list order using reverse()
-numbers.reverse()
-print("Reversed list   :", numbers)
-
-
-# ==========================================================
-# Question 8: Tuple Methods - count() and index()
-# ==========================================================
-print("\n--- Question 8 ---")
-t = (10, 20, 30, 20, 40, 20)
-
-print("Count of 20:", t.count(20))
-print("Index of 30:", t.index(30))
-
-# Handling element not found
-try:
-    t.index(99)
-except ValueError as e:
-    print("Index error handled:", e)
-
-
-# ==========================================================
-# Question 9: Nested Lists (2D Structures)
-# ==========================================================
-print("\n--- Question 9 ---")
-matrix = [
-    [1, 2],
-    [3, 4]
-]
-
-# Access using double indexing [row][col]
-print("Element at row 0, col 1:", matrix[0][1])
-
-# Modify nested value
-matrix[1][0] = 10
-print("Matrix after modifying row 1, col 0:\n", matrix)
-
-
-# ==========================================================
-# Question 10: Converting Between List and Tuple
-# ==========================================================
-print("\n--- Question 10 ---")
-initial_list = [1, 2, 3, 4]
-converted_tuple = tuple(initial_list)
-print("Converted to Tuple:", converted_tuple, type(converted_tuple))
-
-initial_tuple = ("x", "y", "z")
-converted_list = list(initial_tuple)
-# Mutate data after conversion
-converted_list.append("w")
-print("Converted to List and modified:", converted_list, type(converted_list))
-
-
-# ==========================================================
-# Question 11: Iterating Through Lists and Tuples
-# ==========================================================
-print("\n--- Question 11 ---")
-numbers = [10, 20, 30, 40]
-items = ("A", "B", "C")
-
-# Iterating and summing a numeric list
-total = 0
-print("List elements:")
-for n in numbers:
-    print(n, end=" ")
-    total += n
-print(f"\nSum of list elements: {total}")
-
-# Iterating a tuple
-print("Tuple elements:")
-for item in items:
-    print(item, end=" ")
-print()
-
-
-# ==========================================================
-# Question 12: Real-World Scenario - Shopping Cart System
-# ==========================================================
-print("\n--- Question 12 ---")
-cart = ["milk", "bread", "eggs"]
-categories = ("Food", "Drinks", "Snacks")
-
-# Add and remove items
-cart.append("butter")
-cart.remove("bread")
-
-print("Fixed Categories (Tuple):", categories)
-print("Updated Shopping Cart   :", cart)
-print("Total items in Cart     :", len(cart))
+    <h2>Read from technologies.txt</h2>
+    <?php if (file_exists($file)): ?>
+        <pre><?php echo htmlspecialchars(file_get_contents($file)); ?></pre>
+    <?php else: ?>
+        <p>No file created yet. Submit a technology above to create it.</p>
+    <?php endif; ?>
+</body>
+</html>
